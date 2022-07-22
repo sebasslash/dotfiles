@@ -66,6 +66,11 @@ map('n', '<leader>z', ':TagbarToggle<CR>')          -- open/close
 
 -- Telescope
 map('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true })
+map('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap = true })
+map('n', '<leader>lr', ':Telescope lsp_references<CR>', { noremap = true })
 
 -- Gitblame
-map('n', 'gb', ':GitBlameToggle', { noremap = true })
+map('n', '<leader>gb', ':GitBlameToggle', { noremap = true })
+
+-- GoFillStruct
+map('n', '<leader>gf', ':GoFillStruct<CR>', { noremap = true })

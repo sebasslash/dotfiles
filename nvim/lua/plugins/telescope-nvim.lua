@@ -1,4 +1,5 @@
 local builtin = require('telescope.builtin')
+
 require('telescope').setup{
   defaults = {
     -- Default configuration for telescope goes here:
