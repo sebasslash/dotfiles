@@ -123,21 +123,57 @@ end
 -- Add your language server below:
 
 local nvim_lsp = require('lspconfig')
-require('lspconfig')['gopls'].setup{
+
+nvim_lsp['gopls'].setup{
   on_attach = on_attach,
   flags = lsp_flags,
   cmd = { "gopls" },
   filetypes = { "go", "gomod", "gotmpl" },
   root_dir = nvim_lsp.util.root_pattern("go.mod", ".git"),
   single_file_support = true,
+  settings = {
+    gopls = {
+      buildFlags = {"-tags=integration"},
+    },
+  },
 }
 
-require('lspconfig')['terraformls'].setup{
+nvim_lsp['terraformls'].setup{
   on_attach = on_attach,
   flags = lsp_flags,
   cmd = { "terraform-ls", "serve" },
   filetypes = { "terraform" },
   root_dir = nvim_lsp.util.root_pattern(".terraform", ".git"),
+}
+
+nvim_lsp['rls'].setup{
+  cmd = { "rls" },
+  filetypes = { "rust" },
+  root_dir = nvim_lsp.util.root_pattern("Cargo.toml"),
+  all_features = true,
+}
+
+nvim_lsp['sorbet'].setup{
+  cmd = {"srb", "tc", "--lsp"},
+  filetypes = { "ruby" },
+  root_dir = nvim_lsp.util.root_pattern("Gemfile", ".git")
+}
+
+nvim_lsp['ccls'].setup{
+  cmd = { "ccls" },
+  filetypes = { "c", "cpp", "objc", "objcpp", "cxx"},
+  offset_encoding = "utf-32",
+  root_dir = nvim_lsp.util.root_pattern("compile_commands.json", ".ccls", ".git"),
+  single_file_support = false,
+  cache = {
+    directory = ".ccls-cache",
+  },
+}
+
+nvim_lsp['jedi_language_server'].setup{
+  cmd = { "jedi-language-server" },
+  filetypes = { "python" },
+  single_file_support = true,
 }
 
 require('lspconfig')['tsserver'].setup{

@@ -95,9 +95,15 @@ return packer.startup(function(use)
     },
   }
 
+  use 'windwp/nvim-ts-autotag'
+
   use 'ray-x/go.nvim'
 
   use 'SmiteshP/nvim-gps'
+
+  use 'hashivim/vim-terraform'
+
+  use 'peterhoeg/vim-qml'
 
   -- Statusline
   use {
