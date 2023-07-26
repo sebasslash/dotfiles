@@ -80,6 +80,10 @@ return packer.startup(function(use)
   use 'tanvirtin/monokai.nvim'
   use { 'rose-pine/neovim', as = 'rose-pine' }
 
+  -- Debugger
+  use 'mfussenegger/nvim-dap'
+  use 'leoluz/nvim-dap-go'
+
   -- LSP
   use 'neovim/nvim-lspconfig'
 
@@ -123,9 +127,14 @@ return packer.startup(function(use)
   use 'f-person/git-blame.nvim'
 
   use {
-    'romgrk/barbar.nvim',
-    requires = {'kyazdani42/nvim-web-devicons'},
+    'ThePrimeagen/harpoon',
+    requires = { 'nvim-lua/plenary.nvim' },
   }
+
+  -- use {
+  --   'romgrk/barbar.nvim',
+  --   requires = {'kyazdani42/nvim-web-devicons'},
+  -- }
 
   -- Dashboard (start screen)
   use {

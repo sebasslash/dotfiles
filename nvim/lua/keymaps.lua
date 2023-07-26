@@ -69,8 +69,19 @@ map('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true })
 map('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap = true })
 map('n', '<leader>lr', ':Telescope lsp_references<CR>', { noremap = true })
 
+-- Debugger
+map('n', '<leader>tb', ':lua require\'dap\'.toggle_breakpoint()')
+map('n', '<leader>tc', ':lua require\'dap\'.continue()')
+
 -- Gitblame
 map('n', '<leader>gb', ':GitBlameToggle', { noremap = true })
 
 -- GoFillStruct
 map('n', '<leader>gf', ':GoFillStruct<CR>', { noremap = true })
+
+-- Harpoon
+map('n', '<leader>ha', ':lua require\'harpoon.mark\'.add_file()<CR>')
+map('n', '<leader>hr', ':lua require\'harpoon.mark\'.rm_file()<CR>')
+map('n', '<leader>hm', ':lua require\'harpoon.ui\'.toggle_quick_menu()<CR>')
+map('n', '<leader>hn', ':lua require\'harpoon.ui\'.nav_next()<CR>')
+map('n', '<leader>hp', ':lua require\'harpoon.ui\'.nav_prev()<CR>')
