@@ -147,18 +147,14 @@ nvim_lsp['jedi_language_server'].setup{
   single_file_support = true,
 }
 
--- require('lspconfig')['tsserver'].setup{
---   on_attach = on_attach,
---   flags = lsp_flags,
---   settings = {
---     ["tsserver"] = {
---       cmd = { "typescript-language-server", "--stdio"},
---       filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
---       init_options = {
---         hostInfo = "neovim"
---       },
---       root_dir = nvim_lsp.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
---     }
---   }
+nvim_lsp['svelte'].setup {
+  cmd = { "svelteserver", "--stdio" },
+  filetypes = { "svelte" },
+  root_dir = nvim_lsp.util.root_pattern("package.json", ".git"),
+}
 
--- }
+nvim_lsp['nomad_lsp'].setup {
+  cmd = { "nomad-lsp" },
+  filetypes = { "hcl.nomad", "nomad" },
+  root_dir = nvim_lsp.util.root_pattern("hcl.nomad", "nomad"),
+}
