@@ -14,6 +14,7 @@ function add_binary_paths() {
     wastime
     cuda
     solana
+    ros
 }
 
 function add_env_managers() {
@@ -232,6 +233,10 @@ function cuda() {
 function solana() {
     export PATH="/home/sebastian/.local/share/solana/install/active_release/bin:$PATH"
     debug "added solana cli to PATH"
+}
+
+function ros() {
+    source /opt/ros/noetic/setup.zsh
 }
 
 add_binary_paths
