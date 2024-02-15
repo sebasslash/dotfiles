@@ -45,6 +45,9 @@ function add_aliases() {
     alias tf-debug-build="go build -gcflags=all=\"-N -l\" && mv terraform $GOPATH/bin"
     alias reload="source ~/.zshrc"
 
+    alias awful_reload="echo 'awesome.restart()' | awesome-client"
+    alias nomad_dev="nomad agent -dev"
+
     debug "done"
 }
 
