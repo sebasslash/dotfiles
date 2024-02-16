@@ -167,3 +167,33 @@ nvim_lsp['csharp_ls'].setup {
   },
   root_dir = nvim_lsp.util.root_pattern("Assembly-CSharp.csproj", ".sln"),
 }
+
+nvim_lsp['lua_ls'].setup {
+  on_init = function(client)
+    local path = client.workspace_folders[1].name
+    if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
+      client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+        Lua = {
+          runtime = {
+            version = 'LuaJIT',
+          },
+          workspace = {
+            checkThirdParty = false,
+            library = {
+              vim.env.VIMRUNTIME,
+              -- "${3rd}/luv/library"
+              -- "${3rd}/busted/library",
+            }
+          }
+        }
+      })
+      client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+    end
+    return true
+  end,
+  cmd = { "lua-language-server" },
+  filetypes = { "lua" },
+  log_level = 2,
+  root_dir = nvim_lsp.util.root_pattern(".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git"),
+  single_file_support = true
+}
