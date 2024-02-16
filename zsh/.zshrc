@@ -26,6 +26,7 @@ function add_env_managers() {
     init_tfenv
     init_nvm
     init_chruby
+    init_dotnettools
 
     debug "done initializing environments"
 }
@@ -91,7 +92,9 @@ function init_tfenv() {
     debug "initializing tfenv"
 
     export PATH="$HOME/.tfenv/bin:$PATH"
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    if [ -d "/home/linuxbrew/.linuxbrew" ]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    fi
 
     debug "done"
 }
@@ -109,13 +112,22 @@ function init_nvm() {
 function init_chruby() {
     debug "sourcing chruby"
 
-    source /usr/local/share/chruby/chruby.sh
+    if is_linux; then
+        source /usr/local/share/chruby/chruby.sh
+    elif is_macos; then
+        source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+        source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+    fi
 
     RUBIES+=(
         "$HOME/rubies/ruby-3.1.3"
         "$HOME/rubies"
     )
     debug "done"
+}
+
+function init_dotnettools() {
+    export PATH="$PATH:$HOME/.dotnet/tools"
 }
 
 # If you come from bash you might have to change your $PATH.
@@ -228,18 +240,55 @@ function wastime() {
 }
 
 function cuda() {
-    export PATH="/usr/local/cuda-12.3/bin:$PATH"
-    export LD_LIBRARY_PATH="/usr/local/cuda-12.3/lib64:$LD_LIBRARY_PATH"
-    debug "added cuda-12.3 to PATH"
+    # TODO: Check if CUDA is installed as well
+    if nvidia_enabled; then
+        export PATH="/usr/local/cuda-12.3/bin:$PATH"
+        export LD_LIBRARY_PATH="/usr/local/cuda-12.3/lib64:$LD_LIBRARY_PATH"
+        debug "added cuda-12.3 to PATH"
+    else
+        debug "skipped adding cuda path"
+    fi
 }
 
 function solana() {
-    export PATH="/home/sebastian/.local/share/solana/install/active_release/bin:$PATH"
+    export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
     debug "added solana cli to PATH"
 }
 
 function ros() {
-    source /opt/ros/noetic/setup.zsh
+    if is_linux; then
+        source /opt/ros/noetic/setup.zsh
+    else
+        debug "skipping ROS setup"
+    fi
+}
+
+function is_linux() {
+    is_os "Linux"
+}
+
+function is_macos() {
+    is_os "Darwin"
+}
+
+function is_os() {
+    local os_name=$(uname -s)
+    [[ "$os_name" == *"$1"* ]]
+}
+
+
+function nvidia_enabled() {
+    if is_linux; then
+        if lspci | grep -qi "NVIDIA"; then
+            return 0
+        fi
+    elif is_macos; then
+        if system_profiler SPDisplayDataType | grep -qi "NVIDIA"; then
+            return 0
+        fi
+    fi
+
+    return 1
 }
 
 add_binary_paths

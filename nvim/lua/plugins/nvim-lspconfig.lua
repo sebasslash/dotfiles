@@ -158,3 +158,12 @@ nvim_lsp['nomad_lsp'].setup {
   filetypes = { "hcl.nomad", "nomad" },
   root_dir = nvim_lsp.util.root_pattern("hcl.nomad", "nomad"),
 }
+
+nvim_lsp['csharp_ls'].setup {
+  cmd = { "csharp-ls" },
+  filetypes = { "cs" },
+  init_options = {
+    AutomaticWorkspaceInit = true
+  },
+  root_dir = nvim_lsp.util.root_pattern("Assembly-CSharp.csproj", ".sln"),
+}
