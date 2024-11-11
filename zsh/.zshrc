@@ -14,7 +14,6 @@ function add_binary_paths() {
     wastime
     cuda
     solana
-    ros
 }
 
 function add_env_managers() {
@@ -22,7 +21,7 @@ function add_env_managers() {
 
     init_goenv
     init_pyenv
-    init_exenv
+    init_kiex
     init_tfenv
     init_nvm
     init_chruby
@@ -79,11 +78,10 @@ function init_pyenv() {
     debug "done"
 }
 
-function init_exenv() {
-    debug "initializing exenv"
+function init_kiex() {
+    debug "initializing kiex"
 
-    export PATH="$HOME/.exenv/bin:$PATH"
-    eval "$(exenv init -)"
+    [[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
 
     debug "done"
 }
@@ -255,13 +253,6 @@ function solana() {
     debug "added solana cli to PATH"
 }
 
-function ros() {
-    if is_linux; then
-        source /opt/ros/noetic/setup.zsh
-    else
-        debug "skipping ROS setup"
-    fi
-}
 
 function is_linux() {
     is_os "Linux"
