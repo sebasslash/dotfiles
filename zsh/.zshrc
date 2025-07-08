@@ -36,6 +36,7 @@ function add_aliases() {
     # Tmux aliases
     alias tnew="tmux new -s"
     alias tattach="tmux attach -t"
+    alias texit="tmux detach"
     # Vim aliases
     alias vim="nvim"
     alias vi="nvim"
@@ -118,6 +119,7 @@ function init_chruby() {
     fi
 
     RUBIES+=(
+        "$HOME/.rbenv/versions/3.3.5"
         "$HOME/rubies/ruby-3.1.3"
         "$HOME/rubies"
     )

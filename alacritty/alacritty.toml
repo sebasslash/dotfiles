@@ -1,0 +1,42 @@
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[colors.bright]
+black = "0x41535b"
+blue = "0x43a5d5"
+cyan = "0x8a553f"
+green = "0x282a2b"
+magenta = "0xeeeeee"
+red = "0xdb7b55"
+white = "0xffffff"
+yellow = "0x3b758c"
+
+[colors.cursor]
+cursor = "0xd6d6d6"
+text = "0x151718"
+
+[colors.normal]
+black = "0x151718"
+blue = "0x55b5db"
+cyan = "0x55dbbe"
+green = "0x9fca56"
+magenta = "0xa074c4"
+red = "0xcd3f45"
+white = "0xd6d6d6"
+yellow = "0xe6cd69"
+
+[colors.primary]
+background = "0x151718"
+foreground = "0xd6d6d6"
+
+[font.bold]
+family = "MesloLGS Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "MesloLGS Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "MesloLGS Nerd Font"
+style = "Regular"
